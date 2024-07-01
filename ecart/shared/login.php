@@ -51,11 +51,15 @@
 
 <?php
 session_start();
-print_r($_SESSION);
-if (isset($_SESSION['loginStatus']) && $_SESSION['loginStatus'] === true ) {
+
+if (isset($_SESSION['user_id']) && $_SESSION['usertype'] === 'vendor' ) {
     // Redirect to the homepage or dashboard
 
     header("Location: ../vendor/home.php");
+    exit;
+}
+elseif(isset($_SESSION['user_id']) && $_SESSION['usertype'] === 'customer'){
+    header("Location: ../customer/home.php");
     exit;
 }
 
@@ -63,7 +67,7 @@ if (isset($_SESSION['loginStatus']) && $_SESSION['loginStatus'] === true ) {
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     include_once('connection.php');
     //Start a new Session
-    session_start();
+
 
     //check if csrf_token
     if (empty($_SESSION['csrf_token'])) {

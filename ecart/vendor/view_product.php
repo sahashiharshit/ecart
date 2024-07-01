@@ -1,3 +1,7 @@
+<?php 
+include 'authgaurd.php';
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +55,6 @@
 
         }
 
-/* On hover of the h3 tag, we are gonna max out the max-width. */
         p:hover #hide {
             max-width: 100%;
         }
@@ -71,46 +74,45 @@
     
 
    
-    <button class="btn btn-danger">Logout</button>
+    <form action="../shared/logout.php" method="post">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+        <button class=" btn btn-danger" type="submit">Logout</button>
+    </form>
     </div>
 
     </nav>
+    <?php include_once('../shared/connection.php');
+
+        $query = "select * from product where owner = '$_SESSION[user_id]'";
+
+        $result = mysqli_query($connection,$query);
+    ?>
+        
+        <div class="container-fluid">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <?php while($dbrow = mysqli_fetch_assoc($result)){ ?>
+                <div class="col">
+                    <div class = "card">
+                        <div class = "card-body">
+                            <img src="<?php echo $dbrow["imgpath"];?>">
+                            <div class="card-title"><?php echo $dbrow["pname"];?></div>
+                            <div class="card-sub-title price"><?php echo $dbrow["price"];?></div>
+                            <div>
+                                <p>Description... <span id ="hide"><?php echo $dbrow["details"];?> </span></p>
+                            </div>
+                            <div class="action">
+                                <a href="edit_product.php?pid=<?php echo $dbrow["pid"]; ?>"><button class='btn btn-outline-secondary' >Edit</button></a>
+                                <a href="remove_product.php?pid=<?php echo $dbrow["pid"]; ?>" onclick="return confirm('Are you sure?');"><button class='btn btn-outline-info'>Remove</button></a>
+                            </div>
+                        </div>            
+                    </div>
+                </div>    
+            <?php  } ?>
+            </div>
+        </div>
 
 </body>
 </html>
 
 
 
-<?php
-include 'authgaurd.php';
-include_once('../shared/connection.php');
-
-$query = "select * from product where owner = '$_SESSION[user_id]'";
-
-$result = mysqli_query($connection,$query);
-echo "<div class='container-fluid'>
-<div class = 'row row-cols-1 row-cols-md-3 g-4'>";
-
-while($dbrow = mysqli_fetch_assoc($result)){
-    echo "<div class = 'col'>
-    <div class = 'card'>";
-    echo "<div class = 'card-body'>
-    <img  src='$dbrow[imgpath]'>
-    <div class='card-title '>$dbrow[pname]</div>
-    <div class='card-sub-title price'>$dbrow[price]</div>
-    <div >
-    <p>Description... <span id ='hide'>$dbrow[details]</span></p>
-    </div>
-    <div class='action'>
-    <button class='btn btn-outline-secondary'>Edit</button>
-    <button class='btn btn-outline-info'>Remove</button>
-    </div>
-    </div>
-    </div>
-    </div>";
-    
-
-}
-echo "</div></div>";
-
-?>
