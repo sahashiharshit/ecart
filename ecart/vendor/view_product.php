@@ -1,5 +1,5 @@
 <?php 
-include 'authgaurd.php';
+require 'authgaurd.php';
 ?>
 
 
@@ -67,7 +67,10 @@ include 'authgaurd.php';
     <a class="navbar-brand" href="#">Vendor Dashboard</a>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.php">Upload Product</a>
+          <a class="nav-link active" aria-current="page" href="home.php">Upload Inventory</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="manage_orders.php">Manage Orders</a>
         </li>
     </ul>
     <?php echo"<a class='navbar-brand'> Welcome $_SESSION[username]</a>"; ?>
@@ -81,7 +84,7 @@ include 'authgaurd.php';
     </div>
 
     </nav>
-    <?php include_once('../shared/connection.php');
+    <?php require '../shared/connection.php';
 
         $query = "select * from product where owner = '$_SESSION[user_id]'";
 

@@ -1,8 +1,8 @@
 <?php
-include 'customer_authgaurd.php';
-
-
-
+require 'customer_authgaurd.php';
+require '../shared/connection.php';
+$query = "select * from product";
+$result = mysqli_query($connection,$query);
 ?>
 
 
@@ -14,6 +14,7 @@ include 'customer_authgaurd.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
     crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Consumer Home</title>
     <style>
         .price{
@@ -60,57 +61,59 @@ include 'customer_authgaurd.php';
             justify-content:space-between;
         }
     </style>
+   
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class = "container-fluid">
-    <a class="navbar-brand" href="#">Ecart</a>
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">View Cart</a>
-        </li>
-    </ul>
-    <?php echo"<a class='navbar-brand'> Welcome $_SESSION[username]</a>"; ?>
-    
+    <!-- Navbar code starts here -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class = "container-fluid">
+            <a class="navbar-brand" href="#">Ecart</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="cart_view.php">View Cart</a>
+                </li>
+                <li>
+                    <a class="nav-link "  href="view_orders.php">My Orders</a>
+                </li>
+            </ul>
+            <?php echo"<a class='navbar-brand'> Welcome $_SESSION[username]</a>"; ?>
 
-   
-    <form action="../shared/logout.php" method="post">
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
-        <button class=" btn btn-danger" type="submit">Logout</button>
-    </form>
-    </div>
+            <form action="../shared/logout.php" method="post">
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+                <button class=" btn btn-danger" type="submit">Logout</button>
+            </form>
+        </div>
     </nav>
-
-    <?php include_once('../shared/connection.php');
-
-        $query = "select * from product";
-
-        $result = mysqli_query($connection,$query);
-    ?>
-        
-        <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <?php while($dbrow = mysqli_fetch_assoc($result)){ ?>
+    <!-- navbar code ends here-->
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php while($dbrow = mysqli_fetch_assoc($result)){ ?>
                 <div class="col">
                     <div class = "card">
-                    <img src="<?php echo $dbrow["imgpath"];?>">
-                        <div class = "card-body">
-                            
-                            <div class="card-title"><?php echo $dbrow["pname"];?></div>
-                            <div class="card-sub-title price"><?php echo $dbrow["price"];?></div>
+                        <img src="<?php echo $dbrow["imgpath"];?>">
+                        <div class = "card-body">                                
+                            <div class="card-title" style ="font-size:30px "><?php echo $dbrow["pname"];?></div>
+                            <div class="card-subtitle price" style="font-size:30px"><?php echo $dbrow["price"];?></div>
                             <div>
-                                <p>Description... <span id ="hide"><?php echo $dbrow["details"];?> </span></p>
-                            </div>
-                            <div class="action">
-                                <a href="add_cart.php?pid=<?php echo $dbrow["pid"]; ?>"><button class='btn btn-outline-secondary' >Add </button></a>
-                                <!--<a href="remove_product.php?pid=<?php echo $dbrow["pid"]; ?>" onclick="return confirm('Are you sure?');"><button class='btn btn-outline-info'>Remove</button></a>-->
-                            </div>
+                                <p style="font-size:25px">Description... <span id ="hide"><?php echo $dbrow["details"];?> </span></p>
+                            </div>                    
+                            <form action="add_cart.php" method="post" class="p-4 w-50">
+                                <input type="hidden" id="pid" name="pid" value ="<?php echo $dbrow['pid']; ?>">
+                                <label for='quantity' class="form-label">Quantity:</label>
+                                <input type="number" class="" name="quantity" id="quantity" min="1" max ="10" value ="1">
+                                <div class="action mb-2 ">
+                                    <button class='btn btn-outline-secondary' >
+                                        <i class="bi bi-cart-plus" style="font-size: 1.5rem; color: cornflowerblue;"></i> 
+                                    </button>
+                                </div>
+                            </form>
                         </div>            
                     </div>
                 </div>    
             <?php  } ?>
-            </div>
         </div>
+    </div>
+
 
 </body>
 </html>

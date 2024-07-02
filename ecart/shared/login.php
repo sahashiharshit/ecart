@@ -11,37 +11,65 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+    <style>
+        html,
+body {
+  height: 100%;
+}
 
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.action{
+            display: flex;
+            margin-top:10px;
+            justify-content:space-between;
+        }
+    </style>
     <title>Login </title>
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center vh-100">
+
+<main class="d-flex form-signin justify-content-center w-100 m-auto align-items-center vh-100" >
 
         
-        <form action="login.php" method="post" class=" p-4 w-50" >
-            <h3 class="text-center">Enter Credentials to Login</h3>
-            <div class="form-floating mb-3">
+        <form action="login.php" method="post"  >
+            <h3 class="h3 mb-3 fw-normal">Enter Credentials to login</h3>
+            <div class="form-floating mb-3 ">
                 
-                <input required type="text" class="form-control mt-3" id="username" name="username" placeholder="Username" >
+                <input required type="text" class="form-control " id="username" name="username" placeholder="Username" >
                 <label for="username" >User Name</label>
             </div>
             <div class="form-floating mb-3">
                
-                <input required type="password" class="form-control mt-2" id="password" name="password" placeholder="password">
+                <input required type="password" class="form-control" id="password" name="password" placeholder="password">
                 <label for="password"  >Password</label>
             </div>
             
-         <div class="mt-3 text-right">
-            <button class="btn btn-success"> Login </button>
+            <div class="action">
+                <button class="btn btn-success"> Login </button>
+                <a href="signup.html" >Sign Up here......</a>
+            </div>   
             
-         </div>   
-         <div class="d-flex justify-content-end">
-            <a href="signup.html" >Sign Up here......</a>
-        
-         </div>
-           
-    </form>
-    </div>
+        </form>
+</main>
 
 
     
@@ -95,7 +123,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         }else if($result['usertype'] == 'customer'){
             $_SESSION['loginStatus'] = true;
             $_SESSION['usertype'] = $result['usertype'];
-            $_SESSION['userid'] = $result['userid'];
+            $_SESSION['user_id'] = $result['user_id'];
             $_SESSION['username'] = $result['username'];
             header('location:../customer/home.php');
         }
