@@ -18,7 +18,7 @@ $result = $connection->query($sql);
 if ($result->num_rows > 0) {
     $total_amount = 0;
     $cart_items = [];
-    
+
     // Calculate total amount and prepare cart items for insertion into order_items
     while ($row = $result->fetch_assoc()) {
         $total_amount += $row['quantity'] * $row['price'];
@@ -44,8 +44,9 @@ if ($result->num_rows > 0) {
         // Mark cart items as ordered
         $update_cart_sql = "UPDATE cart SET status='ordered' WHERE user_id='$user_id' AND status='active'";
         if ($connection->query($update_cart_sql) === TRUE) {
-            echo "Order placed successfully. You will be redirected to home page in 5 seconds.";
-            header('Refresh: 5; URL=home.php');
+
+            header('Location:payment.php?order_id=' . $order_id);
+            exit();
         } else {
             echo "Error updating cart: " . $connection->error;
         }

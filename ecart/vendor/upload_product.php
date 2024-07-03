@@ -1,5 +1,5 @@
 <?php
-session_start();
+require 'authgaurd.php';
 include_once('../shared/connection.php');
 $filePath = $_FILES['imgpath']['tmp_name'];
 $uploaddir = '../shared/images/';
@@ -12,8 +12,8 @@ $status = mysqli_query($connection,$query);
 if($status){
     move_uploaded_file($filePath,$uploadfile);
    
-    echo "<h2>Product uploaded Sucessfully. You will be redirect to upload page in 5 seconds.</h2>";
-   header('Refresh: 5; URL=home.php');
+    echo "<h2>Product uploaded Sucessfully. You will be redirect to upload page in 2 seconds.</h2>";
+   header('Refresh: 2; URL=home.php');
 
 }else{
     echo"<h2>Product upload unsucessfull. Error! You will be redirect to upload page in 5 seconds. </h2>";

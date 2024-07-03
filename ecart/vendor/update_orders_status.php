@@ -1,7 +1,6 @@
 <?php
 require 'authgaurd.php';
 require '../shared/connection.php'; // Include the database connection
-
 // Check if the admin is logged in
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../shared/login.php'); // Redirect to admin login page if not logged in

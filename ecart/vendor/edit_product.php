@@ -65,14 +65,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Edit Product</title>
 </head>
 <body>
+<div class=" d-flex justify-content-center align-items-center vh-100 ">
 
-<h1>Edit Product</h1>
-<form method="post" enctype="multipart/form-data">
-    Name: <input type="text" name="pname" value="<?php echo $product['pname']; ?>"><br>
-    Price: <input type="text" name="price" value="<?php echo $product['price']; ?>"><br>
-    Detail: <textarea name="details"><?php echo $product['details']; ?></textarea><br>
-    Image: <input type="file" name="imgpath"><br>
-    <input type="submit" value="Update Product">
+<form class="p-4 w-50" style="border:1px solid red; border-radius:4px; " method="post" enctype="multipart/form-data">
+    <h1>Edit Product</h1>
+    <label for="pname" class="form-label">Product Name</label>
+    <input class="form-control" type="text" name="pname" value="<?php echo $product['pname']; ?>">
+    <label for="price" class="form-label">Price</label>
+    <input class="form-control" type="text" name="price" value="<?php echo $product['price']; ?>">
+    <label for="details" class="form-label">Details</label>
+    <textarea class="form-control" name="details"><?php echo $product['details']; ?></textarea>
+    <label for="imgpath" class="form-label">Image</label>
+    <input class="form-control" type="file" name="imgpath">
+    <input class="btn btn-outline-danger mt-2" type="submit" value="Update Product">
 </form>    
+
+</div>
 </body>
 </html>

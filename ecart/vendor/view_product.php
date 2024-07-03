@@ -13,6 +13,7 @@ require 'authgaurd.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
     crossorigin="anonymous"> 
+    <link rel="stylesheet" href="../shared/css/view_orders.css">
     <style>
         
         .price{
@@ -67,7 +68,7 @@ require 'authgaurd.php';
     <a class="navbar-brand" href="#">Vendor Dashboard</a>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.php">Upload Inventory</a>
+          <a class="nav-link " aria-current="page" href="home.php">Upload Inventory</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="manage_orders.php">Manage Orders</a>
@@ -91,18 +92,21 @@ require 'authgaurd.php';
         $result = mysqli_query($connection,$query);
     ?>
         
-        <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class='container-fluid bg-trasparent my-4 p-3' style='position: relative;'>
+        <div class='row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3'>
                 <?php while($dbrow = mysqli_fetch_assoc($result)){ ?>
                 <div class="col">
-                    <div class = "card">
+                    <div class = "card h-100 shadow-sm" style='background-color:lavender'>
+                    <img class="card-img-top" src="<?php echo $dbrow["imgpath"];?>">
                         <div class = "card-body">
-                            <img src="<?php echo $dbrow["imgpath"];?>">
-                            <div class="card-title"><?php echo $dbrow["pname"];?></div>
-                            <div class="card-sub-title price"><?php echo $dbrow["price"];?></div>
-                            <div>
-                                <p>Description... <span id ="hide"><?php echo $dbrow["details"];?> </span></p>
+                        <div class='clearfix mb-3'>
+                             <span class='float-start badge rounded-pill bg-primary'><?php echo $dbrow["pname"];?></span>
+                              <span class='float-end price-hp'><?php echo $dbrow["price"];?>&#8377;</span>
                             </div>
+                            <h6 class="card-title">
+                                <?php echo $dbrow["details"];?>
+                            </h6>
+                           
                             <div class="action">
                                 <a href="edit_product.php?pid=<?php echo $dbrow["pid"]; ?>"><button class='btn btn-outline-secondary' >Edit</button></a>
                                 <a href="remove_product.php?pid=<?php echo $dbrow["pid"]; ?>" onclick="return confirm('Are you sure?');"><button class='btn btn-outline-info'>Remove</button></a>
