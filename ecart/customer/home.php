@@ -70,7 +70,7 @@ $result = mysqli_query($connection, $query);
 
 </head>
 
-<body>
+<body style="background-color:aliceblue">
     <!-- Navbar code starts here -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">

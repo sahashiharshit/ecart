@@ -15,10 +15,11 @@
         html,
 body {
   height: 100%;
+  background-color: aliceblue;
 }
 
 .form-signin {
-  max-width: 330px;
+  max-width: 500px;
   padding: 1rem;
 }
 

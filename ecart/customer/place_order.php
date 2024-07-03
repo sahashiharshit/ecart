@@ -10,6 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Get user ID from session
 $user_id = $_SESSION['user_id'];
+$payment_method = $_POST['payment_method'];
 
 // Fetch cart items for the logged-in user
 $sql = "SELECT cart.*, product.price FROM cart JOIN product ON cart.product_id = product.pid WHERE cart.user_id='$user_id' AND cart.status='active'";
@@ -44,8 +45,11 @@ if ($result->num_rows > 0) {
         // Mark cart items as ordered
         $update_cart_sql = "UPDATE cart SET status='ordered' WHERE user_id='$user_id' AND status='active'";
         if ($connection->query($update_cart_sql) === TRUE) {
-
-            header('Location:payment.php?order_id=' . $order_id);
+            if($payment_method == "online") {
+                header('Location:payment.php?order_id=' . $order_id.'&payment_method='.$payment_method);
+            }else{
+                header('Location:process_payment.php?order_id='.$order_id.'&payment_method='.$payment_method);
+            }
             exit();
         } else {
             echo "Error updating cart: " . $connection->error;

@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     crossorigin="anonymous"> 
     <title>Edit Product</title>
 </head>
-<body>
+<body style="background-color:aliceblue">
 <div class=" d-flex justify-content-center align-items-center vh-100 ">
 
 <form class="p-4 w-50" style="border:1px solid red; border-radius:4px; " method="post" enctype="multipart/form-data">

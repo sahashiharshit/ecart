@@ -59,6 +59,9 @@ require 'authgaurd.php';
         p:hover #hide {
             max-width: 100%;
         }
+        body{
+            background-color: aliceblue;
+        }
 
     </style>
 </head>

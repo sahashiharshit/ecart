@@ -60,7 +60,7 @@ require 'customer_authgaurd.php';
     </style>
 </head>
 
-<body>
+<body style="background-color:aliceblue">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Ecart</a>
@@ -127,11 +127,13 @@ require 'customer_authgaurd.php';
         ?>
         <div class="container p-4">
             <form class="form-control p-2" action='place_order.php' method='post'>
-                <button class=" btn btn-outline-success">
-                    <i class="bi bi-bag-check" style="font-size: 1.5rem; color: cornflowerblue;"></i> Check Out </button>
-
+                <label for="payment_method">Choose a Payment Method</label><br> 
+                <input type="radio" name="payment_method" id="online" value="online" class="mt-3" >
+                <label for="online">Online Payment</label><br>
+                <input type="radio" name="payment_method" id="cod" value="cod" class="mt-3">
+                <label for="cod">Cash On Delivery</label><br>
+                <input type="submit" value="Pay Now" class="btn btn-outline-secondary mt-3">
             </form>
-
         </div>
         <?php
     } else {

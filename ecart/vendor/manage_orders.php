@@ -24,7 +24,7 @@ require 'authgaurd.php';
         }
     </style>
 </head>
-<body>
+<body style="background-color:aliceblue">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class = "container-fluid">
@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
                 echo"<div class='accordion-body'>
                                 <strong> Product: $item_row[pname]</strong>
                                 <br>
-                                <strong> Price: $item_row[price]</strong>
+                                <strong> Price: $item_row[price]&#8377;</strong>
                                 <br>
                                 <code> Quantity: $item_row[quantity] </code>
                         </div>";
